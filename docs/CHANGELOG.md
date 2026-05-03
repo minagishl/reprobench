@@ -43,7 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `benchmark.yml` — incorrect path resolution caused by combining `working-directory: examples/simple` with `node dist/cli.js`; replaced with `bash -c "cd examples/simple && node ../../dist/cli.js ..."`
 - `flake.nix` — replaced removed `nodePackages.pnpm` with `pnpm` (top-level package) following nixpkgs upstream change
 - `.gitignore` — added `!examples/**/reprobench.config.json` to prevent example config from being excluded, which caused CI to fail with "Config file not found"
-- `release.yml` — switched publish step from `pnpm publish` to `npm publish` since pnpm does not support npm Trusted Publishing OIDC token exchange; added `npm install -g npm@latest` to ensure the latest npm is used
+- `release.yml` — switched publish step from `pnpm publish` to `npm publish` since pnpm does not support npm Trusted Publishing OIDC token exchange
 
 [Unreleased]: https://github.com/minagishl/reprobench/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/minagishl/reprobench/releases/tag/v0.1.0
