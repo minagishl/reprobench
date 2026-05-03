@@ -16,6 +16,11 @@
   "bin": {
     "reprobench": "./dist/cli.js"
   },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -25,11 +30,6 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md"
-  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsx src/cli.ts",
