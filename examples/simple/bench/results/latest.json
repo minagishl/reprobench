@@ -1,6 +1,6 @@
 {
   "project": "example",
-  "timestamp": "2026-05-03T23:37:41.972Z",
+  "timestamp": "2026-05-03T23:44:00.362Z",
   "benchmarks": [
     {
       "name": "single-small",
@@ -11,7 +11,7 @@
     {
       "name": "encode batch",
       "group": "speed",
-      "value": 1980786,
+      "value": 2360091,
       "unit": "ops/s"
     }
   ]

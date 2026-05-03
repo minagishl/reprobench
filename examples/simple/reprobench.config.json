@@ -12,10 +12,10 @@
   },
   "compare": {
     "baseline": "baseline.json",
-    "current": "latest.json"
+    "current": "bench/results/latest.json"
   },
   "report": {
-    "input": "latest.json",
+    "input": "bench/results/latest.json",
     "output": "report.md"
   },
   "guards": {
