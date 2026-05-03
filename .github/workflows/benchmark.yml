@@ -12,24 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: latest
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - run: nix develop --command pnpm install --frozen-lockfile
+      - run: nix develop --command pnpm build
       - name: Run benchmark
-        run: node dist/cli.js run
-        working-directory: examples/simple
+        run: nix develop --command bash -c "cd examples/simple && node ../../dist/cli.js run"
       - name: Guard against regressions
-        run: node dist/cli.js guard
-        working-directory: examples/simple
+        run: nix develop --command bash -c "cd examples/simple && node ../../dist/cli.js guard"
       - name: Generate report
-        run: node dist/cli.js report
-        working-directory: examples/simple
+        run: nix develop --command bash -c "cd examples/simple && node ../../dist/cli.js report"
       - name: Upload benchmark report
         uses: actions/upload-artifact@v4
         if: always()
