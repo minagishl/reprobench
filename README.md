@@ -273,7 +273,7 @@ The dev shell includes Node.js 22, pnpm, and git.
 
 This project uses Oxc tools for formatting and linting.
 
-- Formatter: [Oxfmt](https://github.com/nickel-lang/oxfmt)
+- Formatter: [Oxfmt](https://oxc.rs/docs/guide/usage/formatter)
 - Linter: [Oxlint](https://oxc.rs/docs/guide/usage/linter)
 
 ```bash

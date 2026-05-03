@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `tsconfig.json` — disabled `sourceMap` and `declarationMap` to remove `.js.map` and `.d.ts.map` from published package (71 → 37 files)
 
+### Fixed
+
+- Fixed incorrect oxfmt link in `README.md`
+
 ## [0.1.0] - 2026-05-04
 
 ### Added
