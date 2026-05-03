@@ -1,0 +1,20 @@
+{
+  "$schema": "https://reprobench.dev/schema.json",
+  "project": "example",
+  "environment": { "manager": "local" },
+  "tasks": {
+    "bench": {
+      "command": "echo '{\"benchmarks\":[]}'",
+      "output": "bench/results/latest.json"
+    }
+  },
+  "compare": {
+    "baseline": "baseline.json",
+    "current": "latest.json"
+  },
+  "report": {
+    "input": "latest.json",
+    "output": "report.md"
+  },
+  "guards": {}
+}
