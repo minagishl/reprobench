@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-05-04
+
 ### Added
 
 - `reprobench init` command to generate `reprobench.config.json` with `--force` flag support
@@ -43,4 +45,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `.gitignore` — added `!examples/**/reprobench.config.json` to prevent example config from being excluded, which caused CI to fail with "Config file not found"
 - `release.yml` — switched publish step from `pnpm publish` to `npm publish` since pnpm does not support npm Trusted Publishing OIDC token exchange; added `npm install -g npm@latest` to ensure the latest npm is used
 
-[Unreleased]: https://github.com/minagishl/reprobench/compare/main...HEAD
+[Unreleased]: https://github.com/minagishl/reprobench/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/minagishl/reprobench/releases/tag/v0.1.0
