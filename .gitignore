@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.tsbuildinfo
+bench/results/
+examples/simple/report.md
+reprobench.config.json
+.DS_Store

@@ -1,0 +1,7 @@
+{
+  "project": "example",
+  "benchmarks": [
+    { "name": "single-small", "group": "size", "value": 139, "unit": "bytes" },
+    { "name": "encode batch", "group": "speed", "value": 16000, "unit": "ops/s" }
+  ]
+}
