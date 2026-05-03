@@ -34,5 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `benchmark.yml` — incorrect path resolution caused by combining `working-directory: examples/simple` with `node dist/cli.js`; replaced with `bash -c "cd examples/simple && node ../../dist/cli.js ..."`
+- `flake.nix` — replaced removed `nodePackages.pnpm` with `pnpm` (top-level package) following nixpkgs upstream change
 
 [Unreleased]: https://github.com/minagishl/reprobench/compare/main...HEAD
