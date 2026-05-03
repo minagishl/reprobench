@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `.github/ISSUE_TEMPLATE/config.yml` — Disables blank issues and redirects questions to Discussions
 - `.github/PULL_REQUEST_TEMPLATE.md` — PR template with type of change, related issues, test plan, and checklist
 - `.github/workflows/ci.yml` — CI workflow running lint, format check, typecheck, and test via Nix dev shell
-- `.github/workflows/release.yml` — Release workflow publishing to npm via OIDC trusted publishing with provenance attestation, using Nix dev shell for checks
+- `.github/workflows/release.yml` — Release workflow publishing to npm via OIDC trusted publishing, using Nix dev shell for checks
 - `.github/workflows/benchmark.yml` — Benchmark workflow running `reprobench run`, `guard`, and `report` via Nix dev shell on every PR and push
 - `.gitignore` — Excludes `node_modules/`, `dist/`, `bench/results/`, and generated example files
 - `package.json` `files` field — Limits npm publish to `dist/`, `LICENSE`, and `README.md` only
@@ -41,5 +41,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `benchmark.yml` — incorrect path resolution caused by combining `working-directory: examples/simple` with `node dist/cli.js`; replaced with `bash -c "cd examples/simple && node ../../dist/cli.js ..."`
 - `flake.nix` — replaced removed `nodePackages.pnpm` with `pnpm` (top-level package) following nixpkgs upstream change
 - `.gitignore` — added `!examples/**/reprobench.config.json` to prevent example config from being excluded, which caused CI to fail with "Config file not found"
+- `release.yml` — switched publish step from `pnpm publish` to `npm publish` since pnpm does not support npm Trusted Publishing OIDC token exchange; added `npm install -g npm@latest` to ensure the latest npm is used
 
 [Unreleased]: https://github.com/minagishl/reprobench/compare/main...HEAD
