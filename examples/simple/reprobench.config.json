@@ -1,10 +1,12 @@
 {
   "$schema": "https://reprobench.dev/schema.json",
   "project": "example",
-  "environment": { "manager": "local" },
+  "environment": {
+    "manager": "local"
+  },
   "tasks": {
     "bench": {
-      "command": "echo '{\"benchmarks\":[]}'",
+      "command": "node bench.js",
       "output": "bench/results/latest.json"
     }
   },
@@ -16,5 +18,16 @@
     "input": "latest.json",
     "output": "report.md"
   },
-  "guards": {}
+  "guards": {
+    "benchmarks": {
+      "single-small": {
+        "max": 50,
+        "unit": "bytes"
+      },
+      "encode batch": {
+        "min": 100000,
+        "unit": "ops/s"
+      }
+    }
+  }
 }

@@ -136,6 +136,43 @@ Verifies config existence, schema validity, file paths, `package.json` scripts, 
   "environment": {
     "manager": "local"
   },
+```
+
+### Nix-powered benchmark execution
+
+Set `environment.manager` to `"nix"` to run benchmark tasks inside the Nix dev shell. This ensures the benchmark runs in the exact pinned environment defined by your `flake.nix`.
+
+```json
+{
+  "environment": {
+    "manager": "nix",
+    "flake": ".",
+    "shell": "default"
+  },
+  "tasks": {
+    "bench": {
+      "command": "pnpm bench",
+      "output": "bench/results/latest.json"
+    }
+  }
+}
+```
+
+`reprobench run` will execute:
+
+```bash
+nix develop .#default --command pnpm bench
+```
+
+### Full configuration example
+
+```json
+{
+  "$schema": "https://reprobench.dev/schema.json",
+  "project": "my-library",
+  "environment": {
+    "manager": "local"
+  },
   "tasks": {
     "bench": {
       "command": "pnpm bench",
@@ -268,6 +305,16 @@ pnpm check
 ```
 
 The dev shell includes Node.js 22, pnpm, and git.
+
+### Run reprobench directly via Nix
+
+You can run reprobench without installing it via npm:
+
+```bash
+nix run github:minagishl/reprobench -- --help
+nix run github:minagishl/reprobench -- init
+nix run github:minagishl/reprobench -- compare baseline.json latest.json
+```
 
 ## Formatter / Linter
 

@@ -13,12 +13,19 @@ export async function runBench(): Promise<void> {
 
   let hasFailure = false;
 
+  const env = config.environment;
+  const useNix = env?.manager === "nix";
+  const flake = env?.flake ?? ".";
+  const shell = env?.shell ?? "default";
+
   for (const [name, task] of Object.entries(config.tasks ?? {})) {
+    const cmd = useNix ? `nix develop ${flake}#${shell} --command ${task.command}` : task.command;
+
     console.log(pc.cyan(`→`) + ` Running task: ${name}`);
-    console.log(`  Command: ${task.command}`);
+    console.log(`  Command: ${cmd}`);
 
     try {
-      const result = await execa(task.command, {
+      const result = await execa(cmd, {
         shell: true,
         reject: false,
       });

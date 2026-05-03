@@ -53,7 +53,9 @@ const TaskConfigSchema = z.object({
 });
 
 const EnvironmentConfigSchema = z.object({
-  manager: z.string().default("local"),
+  manager: z.enum(["local", "nix"]).default("local"),
+  flake: z.string().optional(),
+  shell: z.string().optional(),
 });
 
 const CompareConfigSchema = z.object({

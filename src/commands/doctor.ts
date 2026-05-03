@@ -95,11 +95,28 @@ export async function runDoctor(): Promise<void> {
     }
   }
 
-  // Check flake.nix
+  // Check Nix files
   if (await fileExists(join(cwd, "flake.nix"))) {
     ok("flake.nix exists");
   } else {
     warn("flake.nix not found");
+  }
+
+  if (await fileExists(join(cwd, "flake.lock"))) {
+    ok("flake.lock exists");
+  } else {
+    warn("flake.lock not found — run: nix develop");
+  }
+
+  // Check environment.manager
+  if (config) {
+    const manager = config.environment?.manager ?? "local";
+    ok(`environment.manager: ${manager}`);
+    if (manager === "nix") {
+      const flake = config.environment?.flake ?? ".";
+      const shell = config.environment?.shell ?? "default";
+      ok(`Nix flake: ${flake}#${shell}`);
+    }
   }
 
   // Check package.json and devDependencies

@@ -10,8 +10,31 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        package = pkgs.buildNpmPackage {
+          pname = "reprobench";
+          version = "0.1.0";
+          src = ./.;
+          npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+          buildPhase = "npm run build";
+          installPhase = ''
+            mkdir -p $out
+            cp -r dist $out/
+            cp package.json $out/
+            mkdir -p $out/bin
+            echo '#!/usr/bin/env node' > $out/bin/reprobench
+            echo "require('$out/dist/cli.js')" >> $out/bin/reprobench
+            chmod +x $out/bin/reprobench
+          '';
+        };
       in
       {
+        packages.default = package;
+
+        apps.default = {
+          type = "app";
+          program = "${package}/bin/reprobench";
+        };
+
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             nodejs_22

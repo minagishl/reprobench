@@ -7,9 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `environment.manager: "nix"` support — `reprobench run` now wraps task commands with `nix develop <flake>#<shell> --command` when manager is set to `"nix"`
+- `flake.nix` — added `packages.default` and `apps.default` to enable `nix run github:minagishl/reprobench`
+- `examples/simple/bench.js` — real benchmark script measuring `TextEncoder` throughput and output size
+- `reprobench doctor` now checks for `flake.lock` existence and reports `environment.manager` value
+- `README.md` — added Nix-powered benchmark execution section with `environment.manager: "nix"` config example
+- `README.md` — added `nix run github:minagishl/reprobench` usage to Nix Usage section
+
 ### Changed
 
 - `tsconfig.json` — disabled `sourceMap` and `declarationMap` to remove `.js.map` and `.d.ts.map` from published package (71 → 37 files)
+- `examples/simple/reprobench.config.json` — replaced `echo` dummy command with `node bench.js`; added real guards (`single-small` max 50 bytes, `encode batch` min 100,000 ops/s)
+- `src/core/schema.ts` — `environment.manager` is now `enum(["local", "nix"])` with optional `flake` and `shell` fields
 
 ### Fixed
 
