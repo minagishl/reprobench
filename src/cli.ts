@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { Command } from "commander";
+import { Command, Option } from "commander";
 import { runInit } from "./commands/init.js";
 import { runBench } from "./commands/run.js";
 import { runCompare } from "./commands/compare.js";
@@ -18,11 +18,14 @@ program
   .command("init")
   .description("Initialize reprobench.config.json")
   .option("--force", "Overwrite existing config")
-  .option("--manager <manager>", "Environment manager: nix or local (auto-detected if omitted)")
-  .action(async (options: { force?: boolean; manager?: string }) => {
-    const manager =
-      options.manager === "nix" || options.manager === "local" ? options.manager : undefined;
-    await runInit({ force: options.force, manager }).catch((err: unknown) => {
+  .addOption(
+    new Option("--manager <manager>", "Environment manager (auto-detected if omitted)").choices([
+      "nix",
+      "local",
+    ]),
+  )
+  .action(async (options: { force?: boolean; manager?: "nix" | "local" }) => {
+    await runInit({ force: options.force, manager: options.manager }).catch((err: unknown) => {
       console.error(String(err));
       process.exit(1);
     });
