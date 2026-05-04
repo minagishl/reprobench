@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `flake.nix` — replaced `buildNpmPackage` with `fetchPnpmDeps` + `pnpmConfigHook` to package natively with pnpm (no `package-lock.json` required); fixed ESM wrapper to use `exec node` bash script instead of broken `require()`; updated `pnpmDeps` hash to correct value
+- `src/commands/run.ts` — `nix develop` command now wraps `task.command` with `bash -lc ${JSON.stringify(...)}` to safely handle commands containing spaces, pipes, or shell metacharacters
 - `tsconfig.json` — disabled `sourceMap` and `declarationMap` to remove `.js.map` and `.d.ts.map` from published package (71 → 37 files)
 - `examples/simple/reprobench.config.json` — replaced `echo` dummy command with `node bench.js`; added real guards (`single-small` max 50 bytes, `encode batch` min 100,000 ops/s); fixed `compare.current` and `report.input` to point to `bench/results/latest.json` instead of the static `latest.json`
 - `src/core/schema.ts` — `environment.manager` is now `enum(["local", "nix"])` with optional `flake` and `shell` fields

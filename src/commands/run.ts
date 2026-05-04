@@ -19,7 +19,9 @@ export async function runBench(): Promise<void> {
   const shell = env?.shell ?? "default";
 
   for (const [name, task] of Object.entries(config.tasks ?? {})) {
-    const cmd = useNix ? `nix develop ${flake}#${shell} --command ${task.command}` : task.command;
+    const cmd = useNix
+      ? `nix develop ${flake}#${shell} --command bash -lc ${JSON.stringify(task.command)}`
+      : task.command;
 
     console.log(pc.cyan(`→`) + ` Running task: ${name}`);
     console.log(`  Command: ${cmd}`);

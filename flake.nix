@@ -6,26 +6,48 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        package = pkgs.buildNpmPackage {
+        nodejs = pkgs.nodejs_22;
+        package = pkgs.stdenv.mkDerivation (finalAttrs: {
           pname = "reprobench";
           version = "0.1.0";
           src = ./.;
-          npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-          buildPhase = "npm run build";
+
+          nativeBuildInputs = [
+            nodejs
+            pkgs.pnpm
+            pkgs.pnpmConfigHook
+          ];
+
+          pnpmDeps = pkgs.fetchPnpmDeps {
+            inherit (finalAttrs) pname version src;
+            fetcherVersion = 3;
+            hash = "sha256-eTcPicwR+V118lnmoso9oC+wxotF+WpW5dfuKydIuAQ=";
+          };
+
+          buildPhase = ''
+            pnpm run build
+          '';
+
           installPhase = ''
-            mkdir -p $out
-            cp -r dist $out/
-            cp package.json $out/
-            mkdir -p $out/bin
-            echo '#!/usr/bin/env node' > $out/bin/reprobench
-            echo "require('$out/dist/cli.js')" >> $out/bin/reprobench
+            mkdir -p $out/lib/reprobench $out/bin
+            cp -r dist node_modules package.json $out/lib/reprobench/
+            cat > $out/bin/reprobench <<EOF
+#!/usr/bin/env bash
+exec ${nodejs}/bin/node $out/lib/reprobench/dist/cli.js "\$@"
+EOF
             chmod +x $out/bin/reprobench
           '';
-        };
+        });
       in
       {
         packages.default = package;
@@ -36,10 +58,10 @@
         };
 
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            nodejs_22
-            pnpm
-            git
+          buildInputs = [
+            nodejs
+            pkgs.pnpm
+            pkgs.git
           ];
           shellHook = ''
             echo "reprobench dev environment"
@@ -49,5 +71,6 @@
         };
 
         formatter = pkgs.nixfmt-rfc-style;
-      });
+      }
+    );
 }
