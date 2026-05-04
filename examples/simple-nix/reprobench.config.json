@@ -1,0 +1,31 @@
+{
+  "$schema": "https://reprobench.dev/schema.json",
+  "project": "example-nix",
+  "environment": {
+    "manager": "nix",
+    "flake": "../..",
+    "shell": "default"
+  },
+  "tasks": {
+    "bench": {
+      "command": "node ../simple/bench.js",
+      "output": "bench/results/latest.json"
+    }
+  },
+  "compare": {
+    "baseline": "baseline.json",
+    "current": "bench/results/latest.json"
+  },
+  "guards": {
+    "benchmarks": {
+      "single-small": {
+        "max": 50,
+        "unit": "bytes"
+      },
+      "encode batch": {
+        "min": 100000,
+        "unit": "ops/s"
+      }
+    }
+  }
+}

@@ -127,17 +127,6 @@ Verifies config existence, schema validity, file paths, `package.json` scripts, 
 
 ## Configuration
 
-`reprobench.config.json`:
-
-```json
-{
-  "$schema": "https://reprobench.dev/schema.json",
-  "project": "my-library",
-  "environment": {
-    "manager": "local"
-  },
-```
-
 ### Nix-powered benchmark execution
 
 Set `environment.manager` to `"nix"` to run benchmark tasks inside the Nix dev shell. This ensures the benchmark runs in the exact pinned environment defined by your `flake.nix`.

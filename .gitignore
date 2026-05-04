@@ -2,7 +2,7 @@ node_modules/
 dist/
 *.tsbuildinfo
 bench/results/
-examples/simple/report.md
+examples/*/report.md
 reprobench.config.json
 !examples/**/reprobench.config.json
 .DS_Store

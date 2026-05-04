@@ -28,3 +28,7 @@ jobs:
         with:
           name: benchmark-report
           path: examples/simple/report.md
+      - name: Run benchmark via nix manager
+        run: nix develop --command bash -c "cd examples/simple-nix && node ../../dist/cli.js run"
+      - name: Guard via nix manager
+        run: nix develop --command bash -c "cd examples/simple-nix && node ../../dist/cli.js guard"
