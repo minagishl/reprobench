@@ -52,6 +52,8 @@ EOF
       {
         packages.default = package;
 
+        checks.default = package;
+
         apps.default = {
           type = "app";
           program = "${package}/bin/reprobench";
