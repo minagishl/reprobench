@@ -9,7 +9,9 @@ Reprobench is configured via `reprobench.config.json` in your project root. Run 
   "$schema": "https://reprobench.dev/schema.json",
   "project": "my-library",
   "environment": {
-    "manager": "local"
+    "manager": "nix",
+    "flake": ".",
+    "shell": "default"
   },
   "tasks": {
     "bench": {
@@ -58,31 +60,21 @@ Controls how benchmark tasks are executed.
 
 ```json
 "environment": {
-  "manager": "local"
-}
-```
-
-| Field     | Type                 | Default     | Description                                              |
-| --------- | -------------------- | ----------- | -------------------------------------------------------- |
-| `manager` | `"local"` \| `"nix"` | `"local"`   | Execution environment                                    |
-| `flake`   | string               | `"."`       | Nix flake path. Only used when `manager` is `"nix"`.     |
-| `shell`   | string               | `"default"` | Nix dev shell name. Only used when `manager` is `"nix"`. |
-
-### `manager: "local"`
-
-Runs task commands directly in the current shell. No Nix involved. Suitable when your CI already pins the environment externally.
-
-### `manager: "nix"`
-
-Wraps each task command in `nix develop` before running it. This ensures the benchmark executes in the exact pinned toolchain defined by your `flake.nix`.
-
-```json
-"environment": {
   "manager": "nix",
   "flake": ".",
   "shell": "default"
 }
 ```
+
+| Field     | Type                 | Default     | Description                                              |
+| --------- | -------------------- | ----------- | -------------------------------------------------------- |
+| `manager` | `"nix"` \| `"local"` | `"local"`   | Execution environment                                    |
+| `flake`   | string               | `"."`       | Nix flake path. Only used when `manager` is `"nix"`.     |
+| `shell`   | string               | `"default"` | Nix dev shell name. Only used when `manager` is `"nix"`. |
+
+### `manager: "nix"` (recommended)
+
+Wraps each task command in `nix develop` before running it. This ensures the benchmark executes in the exact pinned toolchain defined by your `flake.nix`.
 
 Given a task with `"command": "pnpm bench"`, reprobench will execute:
 
@@ -91,6 +83,16 @@ nix develop .#default --command bash -lc "pnpm bench"
 ```
 
 See [Nix Integration](/guide/nix) for more details.
+
+### `manager: "local"`
+
+Runs task commands directly in the current shell without entering a Nix dev shell. Suitable when your CI already pins the environment externally, or when you don't have a `flake.nix`.
+
+```json
+"environment": {
+  "manager": "local"
+}
+```
 
 ## `tasks`
 

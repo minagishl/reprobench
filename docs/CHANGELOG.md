@@ -12,11 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `.github/workflows/codeql.yml` — CodeQL static analysis for JavaScript/TypeScript on push, pull request, and weekly schedule
 - `tsconfig.json` — added `"types": ["node"]` for TypeScript 6.0 compatibility
 - `vite` — added to devDependencies to satisfy vitest v4 peer dependency
+- `reprobench init --manager <nix|local>` — explicit manager selection flag
+- `reprobench init` auto-detection — if `flake.nix` exists in cwd, defaults to `manager: "nix"`; otherwise falls back to `manager: "local"`
 
 ### Changed
 
 - `package.json` — updated all dependencies to latest versions (commander v14, zod v4, typescript v6, vitest v4, etc.)
 - `src/core/schema.ts` — updated `z.record()` calls to `z.record(z.string(), ...)` for Zod v4 compatibility
+- README and docs — `manager: "nix"` is now the primary example; `manager: "local"` documented as fallback
 
 ## [0.2.0] - 2026-05-04
 

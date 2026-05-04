@@ -5,6 +5,7 @@ import { getDefaultConfig } from "../templates/config.js";
 
 export interface InitOptions {
   force?: boolean;
+  manager?: "nix" | "local";
 }
 
 export async function runInit(options: InitOptions = {}): Promise<void> {
@@ -16,7 +17,14 @@ export async function runInit(options: InitOptions = {}): Promise<void> {
     process.exit(1);
   }
 
-  const config = getDefaultConfig();
+  let manager: "nix" | "local";
+  if (options.manager) {
+    manager = options.manager;
+  } else {
+    manager = (await fileExists(join(cwd, "flake.nix"))) ? "nix" : "local";
+  }
+
+  const config = getDefaultConfig(undefined, manager);
   await writeJsonFile(configPath, config);
   await ensureDir(join(cwd, "bench/results"));
 

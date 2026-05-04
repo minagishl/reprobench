@@ -18,8 +18,11 @@ program
   .command("init")
   .description("Initialize reprobench.config.json")
   .option("--force", "Overwrite existing config")
-  .action(async (options: { force?: boolean }) => {
-    await runInit(options).catch((err: unknown) => {
+  .option("--manager <manager>", "Environment manager: nix or local (auto-detected if omitted)")
+  .action(async (options: { force?: boolean; manager?: string }) => {
+    const manager =
+      options.manager === "nix" || options.manager === "local" ? options.manager : undefined;
+    await runInit({ force: options.force, manager }).catch((err: unknown) => {
       console.error(String(err));
       process.exit(1);
     });

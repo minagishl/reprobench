@@ -41,11 +41,13 @@ pnpm reprobench report
 
 ### `reprobench init`
 
-Initialize a `reprobench.config.json` in the current directory.
+Initialize a `reprobench.config.json` in the current directory. If `flake.nix` is found, defaults to `manager: "nix"`.
 
 ```bash
 reprobench init
-reprobench init --force   # overwrite existing config
+reprobench init --force            # overwrite existing config
+reprobench init --manager nix      # force Nix manager
+reprobench init --manager local    # force local manager
 ```
 
 Also creates the `bench/results/` directory.
@@ -160,7 +162,9 @@ nix develop .#default --command bash -lc "pnpm bench"
   "$schema": "https://reprobench.dev/schema.json",
   "project": "my-library",
   "environment": {
-    "manager": "local"
+    "manager": "nix",
+    "flake": ".",
+    "shell": "default"
   },
   "tasks": {
     "bench": {

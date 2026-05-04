@@ -36,17 +36,23 @@ Run `reprobench init` in your project root to generate `reprobench.config.json` 
 
 ```bash
 reprobench init
-reprobench init --force   # overwrite existing config
+reprobench init --force            # overwrite existing config
+reprobench init --manager nix      # force Nix manager
+reprobench init --manager local    # force local manager
 ```
 
-This creates a minimal config:
+If `flake.nix` is present, `reprobench init` automatically defaults to `manager: "nix"`. Otherwise it falls back to `manager: "local"`.
+
+With a `flake.nix`, this creates:
 
 ```json
 {
   "$schema": "https://reprobench.dev/schema.json",
   "project": "my-library",
   "environment": {
-    "manager": "local"
+    "manager": "nix",
+    "flake": ".",
+    "shell": "default"
   },
   "tasks": {
     "bench": {

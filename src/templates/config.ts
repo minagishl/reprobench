@@ -1,12 +1,16 @@
 import type { ReprobenchConfig } from "../core/schema.js";
 
-export function getDefaultConfig(projectName: string = "my-library"): ReprobenchConfig {
+export function getDefaultConfig(
+  projectName: string = "my-library",
+  manager: "nix" | "local" = "local",
+): ReprobenchConfig {
   return {
     $schema: "https://reprobench.dev/schema.json",
     project: projectName,
-    environment: {
-      manager: "local",
-    },
+    environment:
+      manager === "nix"
+        ? { manager: "nix", flake: ".", shell: "default" }
+        : { manager: "local" },
     tasks: {
       bench: {
         command: "pnpm bench",
