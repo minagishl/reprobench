@@ -8,9 +8,7 @@ export function getDefaultConfig(
     $schema: "https://reprobench.dev/schema.json",
     project: projectName,
     environment:
-      manager === "nix"
-        ? { manager: "nix", flake: ".", shell: "default" }
-        : { manager: "local" },
+      manager === "nix" ? { manager: "nix", flake: ".", shell: "default" } : { manager: "local" },
     tasks: {
       bench: {
         command: "pnpm bench",
