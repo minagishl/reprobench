@@ -129,7 +129,7 @@ Reprobench uses `pkgs.fetchPnpmDeps` + `pkgs.pnpmConfigHook` to build natively f
 ```nix
 package = pkgs.stdenv.mkDerivation (finalAttrs: {
   pname = "reprobench";
-  version = "0.2.0";
+  version = "0.3.0";
   src = ./.;
 
   nativeBuildInputs = [ nodejs pkgs.pnpm pkgs.pnpmConfigHook ];

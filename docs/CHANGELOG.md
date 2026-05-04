@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-05-04
+
 ### Added
 
 - `.github/workflows/codeql.yml` — CodeQL static analysis for JavaScript/TypeScript on push, pull request, and weekly schedule
@@ -97,6 +99,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `release.yml` — switched publish step to `npx --yes npm@latest publish` to avoid `npm install -g npm@latest` circular install failure
 
-[Unreleased]: https://github.com/minagishl/reprobench/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/minagishl/reprobench/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/minagishl/reprobench/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/minagishl/reprobench/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/minagishl/reprobench/releases/tag/v0.1.0
