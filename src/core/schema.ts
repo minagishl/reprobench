@@ -37,13 +37,13 @@ export const BenchmarkEntrySchema = z.object({
   value: z.number(),
   unit: z.string(),
   direction: z.enum(["lower-is-better", "higher-is-better"]).optional(),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const BenchmarkResultSchema = z.object({
   project: z.string().optional(),
   timestamp: z.string().optional(),
-  environment: z.record(z.unknown()).optional(),
+  environment: z.record(z.string(), z.unknown()).optional(),
   benchmarks: z.array(BenchmarkEntrySchema),
 });
 
@@ -75,14 +75,14 @@ const GuardEntrySchema = z.object({
 });
 
 const GuardsConfigSchema = z.object({
-  benchmarks: z.record(GuardEntrySchema).optional(),
+  benchmarks: z.record(z.string(), GuardEntrySchema).optional(),
 });
 
 export const ReprobenchConfigSchema = z.object({
   $schema: z.string().optional(),
   project: z.string(),
   environment: EnvironmentConfigSchema.optional(),
-  tasks: z.record(TaskConfigSchema).optional(),
+  tasks: z.record(z.string(), TaskConfigSchema).optional(),
   compare: CompareConfigSchema.optional(),
   report: ReportConfigSchema.optional(),
   guards: GuardsConfigSchema.optional(),
