@@ -10,9 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `.github/workflows/codeql.yml` — CodeQL static analysis for JavaScript/TypeScript on push, pull request, and weekly schedule
+- `.github/workflows/deploy.yml` — GitHub Pages deploy workflow that builds the VitePress site and publishes to `reprobench.dev`
+- `website/` — VitePress documentation site with guides (Getting Started, Commands, Configuration, Nix Integration, CI Usage) and reference pages (Benchmark Result Format)
+- `website/public/schema.json` — JSON Schema for `reprobench.config.json`, served at `https://reprobench.dev/schema.json`
+- `website/public/CNAME` — custom domain `reprobench.dev` for GitHub Pages
 - `tsconfig.json` — added `"types": ["node"]` for TypeScript 6.0 compatibility
 - `vite` — added to devDependencies to satisfy vitest v4 peer dependency
-- `reprobench init --manager <nix|local>` — explicit manager selection flag
+- `reprobench init --manager <nix|local>` — explicit manager selection flag; invalid values are rejected with an error via commander `.choices()`
 - `reprobench init` auto-detection — if `flake.nix` exists in cwd, defaults to `manager: "nix"`; otherwise falls back to `manager: "local"`
 
 ### Changed
@@ -20,6 +24,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `package.json` — updated all dependencies to latest versions (commander v14, zod v4, typescript v6, vitest v4, etc.)
 - `src/core/schema.ts` — updated `z.record()` calls to `z.record(z.string(), ...)` for Zod v4 compatibility
 - README and docs — `manager: "nix"` is now the primary example; `manager: "local"` documented as fallback
+
+### Fixed
+
+- `src/cli.ts` — `--manager` option now rejects invalid values (e.g. `--manager docker`) with a clear error message instead of silently falling back to auto-detection
 
 ## [0.2.0] - 2026-05-04
 
