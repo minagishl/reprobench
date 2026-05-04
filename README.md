@@ -283,6 +283,8 @@ jobs:
       - run: nix develop --command pnpm reprobench guard
 ```
 
+If `environment.manager` is set to `"nix"`, Reprobench itself will enter the configured Nix dev shell before running each benchmark task — no need to wrap the `run` step manually.
+
 ## Nix Usage
 
 This project provides a Nix flake for reproducible development:

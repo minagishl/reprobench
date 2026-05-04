@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `examples/simple-nix/` — new example that exercises `environment.manager: "nix"`, running `bench.js` via `nix develop` and guarding against regressions; validated in CI benchmark workflow
+- `examples/simple-nix/` — new example that exercises `environment.manager: "nix"`, running `bench.js` via `nix develop` and guarding against regressions; includes `baseline.json` so `reprobench compare` works out of the box; validated in CI benchmark workflow
 - `environment.manager: "nix"` support — `reprobench run` now wraps task commands with `nix develop <flake>#<shell> --command` when manager is set to `"nix"`
 - `flake.nix` — added `packages.default` and `apps.default` to enable `nix run github:minagishl/reprobench`
 - `examples/simple/bench.js` — real benchmark script measuring `TextEncoder` throughput and output size
@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `flake.nix` — replaced `buildNpmPackage` with `fetchPnpmDeps` + `pnpmConfigHook` to package natively with pnpm (no `package-lock.json` required); fixed ESM wrapper to use `exec node` bash script instead of broken `require()`; updated `pnpmDeps` hash to correct value
 - `src/commands/run.ts` — `nix develop` command now wraps `task.command` with `bash -lc ${JSON.stringify(...)}` to safely handle commands containing spaces, pipes, or shell metacharacters
-- `README.md` — removed incomplete JSON snippet from `Configuration` section that was cut off mid-block
+- `README.md` — removed incomplete JSON snippet from `Configuration` section that was cut off mid-block; added note in Benchmark CI section explaining that `environment.manager: "nix"` makes Reprobench enter the Nix dev shell automatically
 - `.github/workflows/benchmark.yml` — added run and guard steps for `examples/simple-nix` to validate `environment.manager: "nix"` in CI
 - `tsconfig.json` — disabled `sourceMap` and `declarationMap` to remove `.js.map` and `.d.ts.map` from published package (71 → 37 files)
 - `examples/simple/reprobench.config.json` — replaced `echo` dummy command with `node bench.js`; added real guards (`single-small` max 50 bytes, `encode batch` min 100,000 ops/s); fixed `compare.current` and `report.input` to point to `bench/results/latest.json` instead of the static `latest.json`
