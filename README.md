@@ -150,7 +150,7 @@ Set `environment.manager` to `"nix"` to run benchmark tasks inside the Nix dev s
 `reprobench run` will execute:
 
 ```bash
-nix develop .#default --command pnpm bench
+nix develop .#default --command bash -lc "pnpm bench"
 ```
 
 ### Full configuration example
