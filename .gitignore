@@ -2,6 +2,7 @@ node_modules/
 dist/
 *.tsbuildinfo
 bench/results/
+result
 examples/*/report.md
 reprobench.config.json
 !examples/**/reprobench.config.json
