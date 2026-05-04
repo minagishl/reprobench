@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `.github/workflows/codeql.yml` — CodeQL static analysis for JavaScript/TypeScript on push, pull request, and weekly schedule
+- `tsconfig.json` — added `"types": ["node"]` for TypeScript 6.0 compatibility
+- `vite` — added to devDependencies to satisfy vitest v4 peer dependency
+
+### Changed
+
+- `package.json` — updated all dependencies to latest versions (commander v14, zod v4, typescript v6, vitest v4, etc.)
+- `src/core/schema.ts` — updated `z.record()` calls to `z.record(z.string(), ...)` for Zod v4 compatibility
+
 ## [0.2.0] - 2026-05-04
 
 ### Added
