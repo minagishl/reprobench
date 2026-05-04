@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `flake.nix` — replaced `buildNpmPackage` with `fetchPnpmDeps` + `pnpmConfigHook` to package natively with pnpm (no `package-lock.json` required); fixed ESM wrapper to use `exec node` bash script instead of broken `require()`; updated `pnpmDeps` hash to correct value
+- `flake.nix` — replaced `buildNpmPackage` with `fetchPnpmDeps` + `pnpmConfigHook` to package natively with pnpm (no `package-lock.json` required); fixed ESM wrapper to use `exec node` bash script instead of broken `require()`; updated `pnpmDeps` hash to correct value; redirected `shellHook` output to stderr so benchmark task stdout is not polluted when using `environment.manager: "nix"`
 - `src/commands/run.ts` — `nix develop` command now wraps `task.command` with `bash -lc ${JSON.stringify(...)}` to safely handle commands containing spaces, pipes, or shell metacharacters
 - `README.md` — removed incomplete JSON snippet from `Configuration` section that was cut off mid-block; added note in Benchmark CI section explaining that `environment.manager: "nix"` makes Reprobench enter the Nix dev shell automatically
 - `.github/workflows/benchmark.yml` — added run and guard steps for `examples/simple-nix` to validate `environment.manager: "nix"` in CI

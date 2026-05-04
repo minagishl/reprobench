@@ -64,9 +64,9 @@ EOF
             pkgs.git
           ];
           shellHook = ''
-            echo "reprobench dev environment"
-            echo "Node.js: $(node --version)"
-            echo "pnpm: $(pnpm --version)"
+            echo "reprobench dev environment" >&2
+            echo "Node.js: $(node --version)" >&2
+            echo "pnpm: $(pnpm --version)" >&2
           '';
         };
 
