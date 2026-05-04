@@ -2,7 +2,7 @@
   "env": {
     "node": true
   },
-  "ignorePatterns": ["node_modules", "dist"],
+  "ignorePatterns": ["node_modules", "dist", "website"],
   "categories": {
     "correctness": "error"
   }

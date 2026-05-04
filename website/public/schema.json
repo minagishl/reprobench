@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://reprobench.dev/schema.json",
+  "title": "ReprobenchConfig",
+  "description": "Configuration file for Reprobench — a reproducible benchmark runner powered by Nix flakes.",
+  "type": "object",
+  "required": ["project"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string",
+      "description": "Name of the project."
+    },
+    "environment": {
+      "type": "object",
+      "description": "Controls how benchmark tasks are executed.",
+      "additionalProperties": false,
+      "properties": {
+        "manager": {
+          "type": "string",
+          "enum": ["local", "nix"],
+          "default": "local",
+          "description": "Execution environment. Use \"nix\" to run tasks inside the configured Nix dev shell."
+        },
+        "flake": {
+          "type": "string",
+          "description": "Nix flake path. Only used when manager is \"nix\". Defaults to \".\"."
+        },
+        "shell": {
+          "type": "string",
+          "description": "Nix dev shell name. Only used when manager is \"nix\". Defaults to \"default\"."
+        }
+      }
+    },
+    "tasks": {
+      "type": "object",
+      "description": "Named benchmark tasks. Each task runs a command and saves its stdout as the result.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["command", "output"],
+        "additionalProperties": false,
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "Shell command to execute. Must write benchmark JSON to stdout."
+          },
+          "output": {
+            "type": "string",
+            "description": "File path where the result JSON is saved."
+          }
+        }
+      }
+    },
+    "compare": {
+      "type": "object",
+      "description": "Paths used by `reprobench compare`.",
+      "required": ["baseline", "current"],
+      "additionalProperties": false,
+      "properties": {
+        "baseline": {
+          "type": "string",
+          "description": "Path to the baseline result file."
+        },
+        "current": {
+          "type": "string",
+          "description": "Path to the current result file."
+        }
+      }
+    },
+    "report": {
+      "type": "object",
+      "description": "Paths used by `reprobench report`.",
+      "required": ["input", "output"],
+      "additionalProperties": false,
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Path to the result file to generate a report from."
+        },
+        "output": {
+          "type": "string",
+          "description": "Path to write the generated Markdown report."
+        }
+      }
+    },
+    "guards": {
+      "type": "object",
+      "description": "Guard conditions used by `reprobench guard` for CI regression detection.",
+      "additionalProperties": false,
+      "properties": {
+        "benchmarks": {
+          "type": "object",
+          "description": "Map of benchmark name to guard condition.",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["unit"],
+            "additionalProperties": false,
+            "properties": {
+              "min": {
+                "type": "number",
+                "description": "Minimum acceptable value. Fails if the benchmark value is below this."
+              },
+              "max": {
+                "type": "number",
+                "description": "Maximum acceptable value. Fails if the benchmark value is above this."
+              },
+              "unit": {
+                "type": "string",
+                "description": "Unit of the benchmark value. Must match the unit in the result file."
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
