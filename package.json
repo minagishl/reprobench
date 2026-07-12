@@ -41,19 +41,19 @@
     "check": "pnpm lint && pnpm fmt:check && pnpm test && pnpm build"
   },
   "dependencies": {
-    "commander": "^14.0.3",
+    "commander": "^15.0.0",
     "execa": "^9.6.1",
     "picocolors": "^1.1.1",
-    "zod": "^4.4.2"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@types/node": "^25.6.0",
+    "@types/node": "^26.1.1",
     "oxfmt": "latest",
     "oxlint": "latest",
-    "tsx": "^4.21.0",
-    "typescript": "^6.0.3",
-    "vite": "^6.4.2",
-    "vitest": "^4.1.5"
+    "tsx": "^4.23.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.4",
+    "vitest": "^4.1.10"
   },
   "engines": {
     "node": ">=22"
