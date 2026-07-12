@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- `website/package.json` — added `pnpm.onlyBuiltDependencies` for `esbuild` so GitHub Pages deploy CI no longer fails under pnpm v10 (`ERR_PNPM_IGNORED_BUILDS`)
+- `website/pnpm-workspace.yaml` / `pnpm-workspace.yaml` — allow `esbuild` builds via `allowBuilds` (pnpm v11 no longer reads `package.json#pnpm`, which caused Deploy CI `ERR_PNPM_IGNORED_BUILDS`)
 
 ## [0.3.0] - 2026-05-04
 
