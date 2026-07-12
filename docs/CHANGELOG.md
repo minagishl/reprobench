@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `package.json` — `typecheck` script (`tsc --noEmit`) for type-checking without emitting build output
+
+### Changed
+
+- `package.json` — updated dependencies (commander v15, zod v4.4.3, `@types/node` v26, tsx v4.23, typescript v7, vite v8, vitest v4.1.10)
+
+### Fixed
+
+- `website/package.json` — added `pnpm.onlyBuiltDependencies` for `esbuild` so GitHub Pages deploy CI no longer fails under pnpm v10 (`ERR_PNPM_IGNORED_BUILDS`)
+
 ## [0.3.0] - 2026-05-04
 
 ### Added
