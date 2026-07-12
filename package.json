@@ -38,7 +38,8 @@
     "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
-    "check": "pnpm lint && pnpm fmt:check && pnpm test && pnpm build"
+    "check": "pnpm lint && pnpm fmt:check && pnpm test && pnpm build",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "commander": "^15.0.0",
